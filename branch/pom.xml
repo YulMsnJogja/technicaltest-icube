@@ -10,8 +10,7 @@
 	</parent>
 	<groupId>com.icube</groupId>
 	<artifactId>test-icube</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+
 	<name>test-icube</name>
 	<description>Demo project for Spring Boot</description>
 
