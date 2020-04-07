@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/main_layout">
+<head>
+    <th:block th:include="fragment/header :: head"> </th:block>
+</head>
+
+<body>
+
+<main role="main" class="container">
+
+    <br>
+    <nav>  <th:block th:replace="fragment/nav :: nav"></th:block>   </nav>
+    <br>
+
+    <h1 class="mb-5">Form Branch</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/}" th:object="${branches}" method="post" enctype="multipart/form-data" role="form">
+                <div class="row">
+                    <input type="hidden" id="enrollmentId" th:field="*{id}"/>
+                    <div class="form-group col-md-6">
+                        <label for="name" class="col-form-label">Name :</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" th:placeholder="'Name'">
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="my-input-autocomplete" class="col-form-label">Address:</label>
+                        <div class="autocomplete-input-container">
+                            <div class="autocomplete-input">
+                                <input type="text" id="my-input-autocomplete" th:field="*{address}" th:placeholder="'Address'" autocomplete="off" role="combobox">
+                            </div>
+                            <ul class="autocomplete-results">
+                            </ul>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="operatingHours" class="col-form-label">Operating Hours :</label>
+                        <input type="text" th:field="*{operatingHours}" class="form-control" id="operatingHours" th:placeholder="'operating hours'">
+                        <span th:if="${#fields.hasErrors('operatingHours')}" th:errors="*{operatingHours}" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <div th:attr="class=${#fields.hasErrors('createOn') ? 'form-group has-error' : 'form-group'}">
+                            <label for="createOn" class="col-form-label"> Create On :</label>
+                            <input type="text" readonly="readonly" class="form-control" id="createOn" th:placeholder="'Create On'" th:field="*{createOn}"/>
+                            <span class="help-block"><th:block th:each="err : ${#fields.errors('createOn')}" th:text="${err}"/></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Status : </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline1" id="optionsRadiosInline1" th:value="${1}"
+                                   th:field="*{isDeleted}"/>Active
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline1" id="optionsRadiosInline2" th:value="${0}"
+                                   th:field="*{isDeleted}"/>Inactive
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="box-footer">
+                        <div class="form-group" align="right">
+                            <button type="submit" class="btn btn-primary" th:text="*{id == null} ? 'Add Branch' : 'Update'"/>
+                            <a th:href="@{/list}" type="button" class="btn btn-danger" th:text="*{id == null} ? 'Cancel' : 'Back'"></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        $('#createOn').datepicker({
+            format: 'dd-mm-yyyy'
+        });
+    });
+    /*]]>*/
+</script>
+
+<footer>
+    <th:block th:include="fragment/footer :: footer"></th:block>
+</footer>
+
+<!-- Replace the value of the key parameter with your own API key. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCV7PG9joJx3czn07eTNti8qiCeeDwZf58&libraries=places&callback=map"></script>
+
+</body>
+</html>
