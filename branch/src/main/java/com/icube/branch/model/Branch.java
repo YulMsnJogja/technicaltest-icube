@@ -15,7 +15,6 @@ import java.util.Date;
 @Data
 @Table(name = "branch")
 @SQLDelete(sql = "UPDATE branch SET deleted=true WHERE id=?")
-@Where(clause = "is_deleted = true")
 public class Branch {
 
     @Id

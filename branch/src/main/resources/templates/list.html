@@ -35,7 +35,9 @@
                 <a class="btn btn-primary" th:href="@{/update/__${branch.id}__}"  role="button" >Update</a>
             </td>
             <td>
-                <a class="btn btn-primary" th:href="@{/delete/__${branch.id}__}" role="button" >Delete</a>
+                <div th:if="${branch.isDeleted}">
+                    <a class="btn btn-primary" th:href="@{/delete/__${branch.id}__}" role="button" >Delete</a>
+                </div>
             </td>
         </tr>
         </tbody>
